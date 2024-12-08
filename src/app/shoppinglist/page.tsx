@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div>
         <Navigation/>
-      <ShoppingCart/>
+      {/* <ShoppingCart/> */}
     </div>
   )
 }
