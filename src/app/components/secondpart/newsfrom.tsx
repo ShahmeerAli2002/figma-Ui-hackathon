@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export const NewsletterSection: React.FC = () => {
   const handleSubmit = () => {
-    // Handle form submission
+    
   };
 
   return (
