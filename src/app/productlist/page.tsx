@@ -3,12 +3,12 @@ import { Products } from '../components/productlist/product'
 import { FilterContainer } from '../components/productlist/fillterbutton/fillcontaxt'
 import { ProductGrid1 } from '../components/productlist/items/productgird'
 import { ProductGrid2 } from '../components/productlist/items2/productgird'
-import { Navigation } from '../components/Navigation'
+
 
 const page = () => {
   return (
     <div>
-        <Navigation/>
+     
       <Products/>
       <FilterContainer/>
       <ProductGrid1/>

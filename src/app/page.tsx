@@ -9,14 +9,14 @@ import { Newsletter } from './components/newsellter/finalsellter'
 import { AboutSection } from './components/about/aboutsecetion'
 
 import { PopularProductsSection } from './components/popalursproduct/finalproduct'
-import { Navigation } from './components/Navigation'
+
 
  // Define or import productsData
 
 const Page = () => {
   return (
     <div>
-      <Navigation/>
+  
       <FurnitureHero/>
       <BrandFeatures/>
       <CeramicsCollection/>

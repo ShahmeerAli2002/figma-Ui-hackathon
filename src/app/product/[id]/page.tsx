@@ -4,7 +4,7 @@ import { PopularProductsSection } from "@/app/components/popalursproduct/finalpr
 import { productsData } from "../../components/popalursproduct/tsproduct";
 import { BrandFeatures } from "@/app/components/brabd/Brandfearuter";
 import { NewsletterSection } from "@/app/components/secondpart/newsfrom";
-import { Navigation } from "@/app/components/Navigation";
+
 
 interface ProductDetailProps {
   params: {
@@ -24,7 +24,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ params }) => {
 
   return (
     <div>
-      <Navigation/>
+    
     <div className="flex flex-col md:flex-row items-center justify-center px-10 py-10 md:px-20 md:py-20 bg-gray-50 min-h-screen">
       {/* Left Section: Image */}
       <div className="w-full md:w-1/2 flex items-center justify-center">
