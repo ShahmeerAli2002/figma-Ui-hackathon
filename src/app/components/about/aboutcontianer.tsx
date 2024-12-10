@@ -17,13 +17,13 @@ export function AboutContent({ title, description }: AboutContentProps) {
             {description}
           </div>
         </div>
-        <button 
+        <a href="/about" 
           className="overflow-hidden gap-2.5 px-8 py-4 mt-48 text-base bg-stone-50 text-indigo-950 max-md:px-5 max-md:mt-10"
           tabIndex={0}
           aria-label="Get in touch"
         >
           Get in touch
-        </button>
+        </a>
       </div>
     </div>
   );

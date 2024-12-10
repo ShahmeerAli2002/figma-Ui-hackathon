@@ -7,8 +7,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div>
-      <nav className="flex justify-between items-center px-4 md:px-6 py-3 md:py-4 border-b border-gray-300">
+
+
+    <div className="sticky top-0 z-50">
+      <nav className="flex justify-between items-center px-4 md:px-6 py-3 md:py-4 border-b border-gray-300 bg-white">
         {/* Left Section - Search Icon */}
         <div className="flex items-center">
           <FiSearch className="text-gray-600 text-xl cursor-pointer" />
@@ -59,7 +61,8 @@ const Navbar = () => {
       )}
 
       {/* Bottom Section - Categories (Desktop) */}
-      <div className="hidden md:flex overflow-x-auto whitespace-nowrap md:justify-center gap-4 md:gap-6 py-2 text-gray-600 text-xs md:text-sm border-b border-gray-300">
+
+      <div className="hidden md:flex overflow-x-auto whitespace-nowrap md:justify-center gap-4 md:gap-6 py-2 text-gray-600 text-xs md:text-sm border-b border-gray-300 bg-white">
         <a href="/plant-pots" className="hover:text-gray-800 px-2">Plant pots</a>
         <a href="/ceramics" className="hover:text-gray-800 px-2">Ceramics</a>
         <a href="/tables" className="hover:text-gray-800 px-2">Tables</a>
