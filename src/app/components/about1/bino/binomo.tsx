@@ -7,7 +7,7 @@ export const BenefitItem: React.FC<BenefitItemProps> = ({ icon, text }) => (
 
     <Image
       loading="lazy"
-      src={`/images/${icon}`}
+      src={`/image/image.png`}
       alt="benefit icon"
       width={16}
       height={16}
