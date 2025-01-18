@@ -1,14 +1,41 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiSearch, FiShoppingCart, FiUser, FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+
+  // Fetch cart count from localStorage
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      setCartCount(cartItems.length);
+    };
+
+    updateCartCount();
+
+    // Listen to storage events for changes in localStorage
+    window.addEventListener("storage", updateCartCount);
+    
+    // Add custom event listener for cart updates
+    window.addEventListener("cartUpdated", updateCartCount);
+
+
+    // Check cart count every second
+    const interval = setInterval(updateCartCount, 1000);
+
+    // Cleanup event listeners and interval on unmount
+    return () => {
+      window.removeEventListener("storage", updateCartCount);
+      window.removeEventListener("cartUpdated", updateCartCount);
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
-
-
     <div className="sticky top-0 z-50">
       <nav className="flex justify-between items-center px-4 md:px-6 py-3 md:py-4 border-b border-gray-300 bg-white">
         {/* Left Section - Search Icon */}
@@ -21,23 +48,30 @@ const Navbar = () => {
 
         {/* Right Section - Icons and Menu */}
         <div className="flex items-center gap-2 md:gap-4">
-          <FiShoppingCart
-            className="text-gray-600 text-lg md:text-xl cursor-pointer"
-            onClick={() => window.location.href = "/shoppingcart"}
-          />
+          <div className="relative">
+            <FiShoppingCart
+              className="text-gray-600 text-lg md:text-xl cursor-pointer"
+              onClick={() => window.location.href = "/shoppingcart"}
+            />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                {cartCount}
+              </span>
+            )}
+          </div>
           <FiUser
             className="text-gray-600 text-lg md:text-xl cursor-pointer"
             onClick={() => window.location.href = "/account"}
           />
           <div className="md:hidden">
             {isMenuOpen ? (
-              <FiX 
-                className="text-gray-600 text-xl cursor-pointer" 
+              <FiX
+                className="text-gray-600 text-xl cursor-pointer"
                 onClick={() => setIsMenuOpen(false)}
               />
             ) : (
-              <FiMenu 
-                className="text-gray-600 text-xl cursor-pointer" 
+              <FiMenu
+                className="text-gray-600 text-xl cursor-pointer"
                 onClick={() => setIsMenuOpen(true)}
               />
             )}
@@ -59,18 +93,6 @@ const Navbar = () => {
           </div>
         </div>
       )}
-
-      {/* Bottom Section - Categories (Desktop) */}
-
-      <div className="hidden md:flex overflow-x-auto whitespace-nowrap md:justify-center gap-4 md:gap-6 py-2 text-gray-600 text-xs md:text-sm border-b border-gray-300 bg-white">
-        <a href="/plant-pots" className="hover:text-gray-800 px-2">Plant pots</a>
-        <a href="/ceramics" className="hover:text-gray-800 px-2">Ceramics</a>
-        <a href="/tables" className="hover:text-gray-800 px-2">Tables</a>
-        <a href="/chairs" className="hover:text-gray-800 px-2">Chairs</a>
-        <a href="/crockery" className="hover:text-gray-800 px-2">Crockery</a>
-        <a href="/tableware" className="hover:text-gray-800 px-2">Tableware</a>
-        <a href="/cutlery" className="hover:text-gray-800 px-2">Cutlery</a>
-      </div>
     </div>
   );
 };

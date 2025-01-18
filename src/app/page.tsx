@@ -1,14 +1,23 @@
 import React from 'react'
 
-import { FurnitureHero } from './components/hero/funitureHero'
-import { BrandFeatures } from './components/brabd/Brandfearuter'
-import { CeramicsCollection } from './components/caramise/careamise'
-import { Newsletter } from './components/newsellter/finalsellter'
 
 
-import { AboutSection } from './components/about/aboutsecetion'
 
-import { PopularProductsSection } from './components/popalursproduct/finalproduct'
+import { Newsletter } from './components/Newsletter'
+
+
+import { AboutSection } from './components/about'
+
+
+import { FurnitureHero } from './components/hero'
+import { BrandFeatures } from './components/BrandFeatures'
+import { Product } from './components/Ceramics'
+import PopularProductsSection from './components/popalursproduct/PopularProductsSection'
+import NewsletterSection from './components/NewsletterSection'
+
+
+
+
 
 
  // Define or import productsData
@@ -19,11 +28,16 @@ const Page = () => {
   
       <FurnitureHero/>
       <BrandFeatures/>
-      <CeramicsCollection/>
+      <Product/>
+     
       {/* <PopularProducts products={productsData}/> */}
       <PopularProductsSection/>
       <Newsletter/>
       <AboutSection/>
+     <NewsletterSection/>
+    
+    
+     
      
     </div>
   )

@@ -1,25 +1,24 @@
-import React from 'react'
-import { Navigation1 } from '../components/about1/navigation'
-import BrandMessageContainer from '../components/about1/brandmessage'
-import { AboutSection } from '../components/about/aboutsecetion'
+import React from "react";
 
-import { NewsletterSection1 } from '../components/about1/bino/newslateer'
-import { BrandFeatures } from '../components/brabd/Brandfearuter'
+import { NewsletterSection1 } from "../components/NewsletterSection1";
+import { BrandFeatures } from "../components/BrandFeatures";
+import { AboutSection } from "../components/about";
+import NewsletterSection from "../components/NewsletterSection";
+import BrandMessage from "../components/BrandMessag";
 
 const page = () => {
   return (
     <div>
-      <Navigation1/>
-      <BrandMessageContainer/>
-      <AboutSection/>
-      <BrandFeatures/>
-    
-      <NewsletterSection1/>
+      <BrandMessage />
 
+      <AboutSection />
+      <NewsletterSection />
 
+      <BrandFeatures />
 
+      <NewsletterSection1 />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
