@@ -1,12 +1,15 @@
+"use client";
 import React from "react";
 import Link from "next/link";
-import { productsData } from "./tsproduct"; // Importing products data
+
+import client from "../../../sanity";
 
 interface ProductCardProps {
   imageSrc: string;
   imageAlt: string;
   title: string;
   price: number;
+  _id: string;
   aspectRatio?: string;
   width?: string;
 }
@@ -18,29 +21,26 @@ interface PopularProductsProps {
 const PopularProducts: React.FC<PopularProductsProps> = ({ products }) => {
   return (
     <div className="flex flex-col px-20 py-14 w-full bg-white max-md:px-5">
-      {/* Section Title */}
       <h2 className="self-start text-3xl font-semibold leading-snug text-indigo-950">
         Our popular products
       </h2>
 
-      {/* Product Grid */}
       <div className="mt-8 flex gap-6 w-full overflow-x-auto">
         {products.map((product, index) => (
           <div
-            key={index}
+
+            key={`product-${product._id}-${index}`}
             className="flex-shrink-0"
             style={{ width: index === 0 ? "40%" : "30%" }}
           >
-            <Link href={`/product/${index}`}>
+            <Link href={`/product/${product._id}`}>
               <span>
                 <div className="flex flex-col grow">
-
                   <div className="w-full h-[300px]">
                     <img
                       loading="lazy"
                       src={product.imageSrc}
                       alt={product.imageAlt}
-
                       className="object-cover w-full h-full"
                       style={{ aspectRatio: product.aspectRatio || "1.2" }}
                     />
@@ -61,9 +61,43 @@ const PopularProducts: React.FC<PopularProductsProps> = ({ products }) => {
   );
 };
 
-const PopularProductsSection: React.FC = () => {
-  return <PopularProducts products={productsData} />;
+const fetchProducts = async () => {
+  const query = `*[_type == "product"][3..6] {
+    _id,
+    title,
+    description,
+    features,
+    dimensions,
+    category,
+    price,
+    tags,
+    image {
+      asset -> {
+        _id,
+        url
+      }
+    }
+  }`;
+
+  const products = await client.fetch(query);
+
+  return products.map((product: any) => ({
+    _id: product._id,
+    imageSrc: product.image.asset.url,
+    imageAlt: product.title,
+    title: product.title,
+    price: product.price,
+  }));
 };
 
+const PopularProductsSection: React.FC = () => {
+  const [products, setProducts] = React.useState<ProductCardProps[]>([]);
+
+  React.useEffect(() => {
+    fetchProducts().then(setProducts);
+  }, []);
+
+  return <PopularProducts products={products} />;
+};
 
 export default PopularProductsSection;

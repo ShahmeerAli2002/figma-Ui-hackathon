@@ -38,9 +38,8 @@ const CeramicsCollection: React.FC = () => {
   // Fetching products from Sanity
   React.useEffect(() => {
     const fetchProducts = async () => {
-      const query = `*[_type == "product"] {
+      const query = `*[_type == "product"][3..6] {
         _id,
-
         title,
         description,
         features,

@@ -1,21 +1,46 @@
 "use client";
 
-import { productsData } from "../../components/popalursproduct/tsproduct";
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import client from "../../../sanity";
 import { BrandFeatures } from "../../components/BrandFeatures";
-import React from "react";
 import NewsletterSection from "@/app/components/NewsletterSection";
 import PopularProductsSection from "../../components/popalursproduct/PopularProductsSection";
 
-interface ProductDetailProps {
-  params: {
-    id: string;
-  };
-}
+const ProductDetail: React.FC = () => {
+  const params = useParams();
+  const id = params.id;
+  const [product, setProduct] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ params }) => {
-  const { id } = params;
-  const product = productsData[parseInt(id)];
- 
+  useEffect(() => {
+    if (id) {
+      const fetchProduct = async () => {
+        const query = `*[_type == "product" && _id == "${id}"] {
+          _id,
+          title,
+          description,
+          price,
+          image {
+            asset -> {
+              _id,
+              url
+            }
+          }
+        }`;
+        const data = await client.fetch(query);
+        setProduct(data[0]); // Since data is returned as an array
+        setLoading(false);
+      };
+
+      fetchProduct();
+    }
+  }, [id]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   if (!product) {
     return <div>Product not found!</div>;
   }
@@ -33,8 +58,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ params }) => {
       <div className="flex flex-col md:flex-row items-center justify-center px-10 py-10 md:px-20 md:py-20 bg-gray-50 min-h-screen">
         <div className="w-full md:w-1/2 flex items-center justify-center">
           <img
-            src={product.imageSrc}
-            alt={product.imageAlt}
+            src={product.image.asset.url}
+            alt={product.title}
             className="rounded-lg shadow-lg w-full h-auto object-cover"
           />
         </div>
@@ -42,10 +67,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ params }) => {
           <h1 className="text-3xl font-bold text-gray-800">{product.title}</h1>
           <p className="text-xl text-indigo-600 font-semibold">£{product.price}</p>
           <div className="text-gray-700 text-sm space-y-4">
-            <p>
-              A timeless design, with premium materials features as one of our
-              most popular and iconic pieces.
-            </p>
+            <p>{product.description}</p>
           </div>
           <div className="flex items-center space-x-4">
             <button
