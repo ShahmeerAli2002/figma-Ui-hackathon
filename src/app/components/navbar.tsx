@@ -93,6 +93,17 @@ const Navbar = () => {
           </div>
         </div>
       )}
+
+      {/* Bottom Section - Categories (Desktop) */}
+      <div className="hidden md:flex overflow-x-auto whitespace-nowrap md:justify-center gap-4 md:gap-6 py-2 text-gray-600 text-xs md:text-sm border-b border-gray-300 bg-white">
+        <a href="/plant-pots" className="hover:text-gray-800 px-2">Plant pots</a>
+        <a href="/ceramics" className="hover:text-gray-800 px-2">Ceramics</a>
+        <a href="/tables" className="hover:text-gray-800 px-2">Tables</a>
+        <a href="/chairs" className="hover:text-gray-800 px-2">Chairs</a>
+        <a href="/crockery" className="hover:text-gray-800 px-2">Crockery</a>
+        <a href="/tableware" className="hover:text-gray-800 px-2">Tableware</a>
+        <a href="/cutlery" className="hover:text-gray-800 px-2">Cutlery</a>
+      </div>
     </div>
   );
 };
