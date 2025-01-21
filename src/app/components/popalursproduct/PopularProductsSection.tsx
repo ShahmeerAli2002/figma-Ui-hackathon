@@ -7,7 +7,7 @@ import client from "../../../sanity";
 interface ProductCardProps {
   imageSrc: string;
   imageAlt: string;
-  title: string;
+  name: string;
   price: number;
   _id: string;
   aspectRatio?: string;
@@ -47,7 +47,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({ products }) => {
                   </div>
                   <div className="flex flex-col self-start mt-4 text-indigo-950">
                     <div className="text-xl font-medium leading-snug">
-                      {product.title}
+                      {product.name}
                     </div>
                     <div className="mt-2 text-lg">£{product.price}</div>
                   </div>
@@ -64,7 +64,7 @@ const PopularProducts: React.FC<PopularProductsProps> = ({ products }) => {
 const fetchProducts = async () => {
   const query = `*[_type == "product"][3..6] {
     _id,
-    title,
+    name,
     description,
     features,
     dimensions,
@@ -84,8 +84,8 @@ const fetchProducts = async () => {
   return products.map((product: any) => ({
     _id: product._id,
     imageSrc: product.image.asset.url,
-    imageAlt: product.title,
-    title: product.title,
+    imageAlt: product.name,
+    name: product.name,
     price: product.price,
   }));
 };

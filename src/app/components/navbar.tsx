@@ -1,7 +1,7 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { FiSearch, FiShoppingCart, FiUser, FiMenu, FiX } from "react-icons/fi";
+import SearchComponent from "../components/Search"; // Import the search component
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,7 +11,6 @@ const Navbar = () => {
   useEffect(() => {
     const updateCartCount = () => {
       const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
-
       setCartCount(cartItems.length);
     };
 
@@ -19,10 +18,9 @@ const Navbar = () => {
 
     // Listen to storage events for changes in localStorage
     window.addEventListener("storage", updateCartCount);
-    
+
     // Add custom event listener for cart updates
     window.addEventListener("cartUpdated", updateCartCount);
-
 
     // Check cart count every second
     const interval = setInterval(updateCartCount, 1000);
@@ -38,9 +36,9 @@ const Navbar = () => {
   return (
     <div className="sticky top-0 z-50">
       <nav className="flex justify-between items-center px-4 md:px-6 py-3 md:py-4 border-b border-gray-300 bg-white">
-        {/* Left Section - Search Icon */}
+        {/* Left Section - Search Component */}
         <div className="flex items-center">
-          <FiSearch className="text-gray-600 text-xl cursor-pointer" />
+          <SearchComponent /> {/* Add Search Component here */}
         </div>
 
         {/* Center Section - Logo */}

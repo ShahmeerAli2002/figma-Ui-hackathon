@@ -4,13 +4,13 @@ import Link from "next/link";
 import  client  from "../../sanity"; // Sanity client import
 
 // ProductCard Component
-const ProductCard: React.FC<ProductCardProps> = ({ image, title, price }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ image, name, price }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden group hover:shadow-lg transition">
-      <img src={image} alt={title} className="w-full h-64 object-contain" />
+      <img src={image} alt={name} className="w-full h-64 object-contain" />
       <div className="p-4">
         <h3 className="text-lg font-medium text-gray-800 group-hover:text-indigo-600">
-          {title}
+          {name}
         </h3>
         <p className="mt-2 text-indigo-700 font-semibold">£{price}</p>
       </div>
@@ -40,7 +40,7 @@ const CeramicsCollection: React.FC = () => {
     const fetchProducts = async () => {
       const query = `*[_type == "product"][3..6] {
         _id,
-        title,
+        name,
         description,
         features,
         dimensions,
@@ -62,7 +62,7 @@ const CeramicsCollection: React.FC = () => {
   }, []);
 
   const handleViewCollection = React.useCallback(() => {
-    window.location.href = "/collection";
+    window.location.href = "/ceramics";
   }, []);
 
   return (
@@ -72,7 +72,7 @@ const CeramicsCollection: React.FC = () => {
         {products.map((product) => (
           <Link key={product._id} href={`/product/${product._id}`}>
             <span className="group">
-              <ProductCard image={product.image.asset.url} title={product.title} price={product.price} />
+              <ProductCard image={product.image.asset.url} name={product.name} price={product.price} />
             </span>
           </Link>
         ))}
@@ -87,7 +87,7 @@ const CeramicsCollection: React.FC = () => {
 // Interfaces for props
 export interface ProductCardProps {
   image: string;
-  title: string;
+  name: string;
   price: number;
 }
 
