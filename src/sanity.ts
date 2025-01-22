@@ -2,9 +2,10 @@ import { createClient } from '@sanity/client';
 import dotenv from 'dotenv';
 dotenv.config();
 const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  projectId: "qb6wry8z",
+  dataset: "production",
   apiVersion: '2025-01-17',
+  // token:"",
   useCdn: true,
 });
 
