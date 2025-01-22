@@ -18,8 +18,8 @@ interface Product {
         };
     };
 }
-import dotenv from 'dotenv';
-dotenv.config();
+
+
 const client = sanityClient({
   projectId: "qb6wry8z",
   dataset: "production",
