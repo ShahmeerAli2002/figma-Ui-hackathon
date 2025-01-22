@@ -38,7 +38,7 @@ const CeramicsCollection: React.FC = () => {
   // Fetching products from Sanity
   React.useEffect(() => {
     const fetchProducts = async () => {
-      const query = `*[_type == "product"][4..8] {
+      const query = `*[_type == "product"][20..24] {
         _id,
         name,
         description,
@@ -67,7 +67,7 @@ const CeramicsCollection: React.FC = () => {
 
   return (
     <section className="flex flex-col px-20 py-16 w-full bg-gray-50 max-md:px-5">
-      <h1 className="text-3xl font-semibold text-gray-800">Ceramics</h1>
+      <h1 className="text-3xl font-semibold text-gray-800">Crockery</h1>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {products.map((product) => (
           <Link key={product._id} href={`/product/${product._id}`}>

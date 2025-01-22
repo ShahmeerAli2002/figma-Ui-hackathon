@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import sanityClient from '@sanity/client';
+
 interface Product {
     _id: string;
     name: string;
@@ -17,18 +18,21 @@ interface Product {
         };
     };
 }
+import dotenv from 'dotenv';
+dotenv.config();
 const client = sanityClient({
-  projectId: 'qb6wry8z', // Replace with your Sanity project ID
-  dataset: 'production', // Or your dataset name
-  useCdn: true, // Use the CDN for faster queries
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  useCdn: true,
 });
 
 const SearchComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // Fetch products from Sanity
+
   useEffect(() => {
     const fetchProducts = async () => {
       const query = `*[_type == "product"] {
@@ -55,7 +59,7 @@ const SearchComponent = () => {
     fetchProducts();
   }, []);
 
-  // Filter products based on the search query
+
   useEffect(() => {
     if (searchQuery.trim() === '') {
       setFilteredProducts([]);
@@ -68,26 +72,54 @@ const SearchComponent = () => {
   }, [searchQuery, products]);
 
   return (
-    <div className="relative w-64">
+
+    <div className="relative">
       <div className="flex items-center">
-        <FiSearch className="text-gray-600 text-xl cursor-pointer" />
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="border p-2 rounded-md w-full ml-2"
+
+
+
+
+
+
+
+        <FiSearch 
+          className="text-gray-600 text-xl cursor-pointer" 
+          onClick={() => setIsSearchOpen(!isSearchOpen)}
         />
+        {isSearchOpen && (
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="border p-2 rounded-md w-64 ml-2"
+          />
+        )}
       </div>
 
-      {/* Display filtered products */}
-      {filteredProducts.length > 0 && (
-        <div className="absolute left-0 right-0 mt-2 bg-white shadow-lg rounded-lg max-h-60 overflow-y-auto">
+
+
+
+      {isSearchOpen && filteredProducts.length > 0 && (
+        <div className="absolute left-0 right-0 mt-2 bg-white shadow-lg rounded-lg max-h-96 overflow-y-auto w-[300px]">
           <ul>
             {filteredProducts.map((product) => (
-              <li key={product._id} className="p-2 border-b">
-                <a href={`/product/${product._id}`} className="text-gray-800">
-                  {product.name}
+
+
+
+              <li key={product._id} className="p-2 border-b hover:bg-gray-100">
+                <a href={`/product/${product._id}`} className="flex items-center space-x-3">
+                  {product.image && product.image.asset && (
+                    <img 
+                      src={product.image.asset.url} 
+                      alt={product.name}
+                      className="w-12 h-12 object-cover rounded"
+                    />
+                  )}
+                  <div>
+                    <p className="text-gray-800 font-medium">{product.name}</p>
+                    <p className="text-gray-600 text-sm">${product.price}</p>
+                  </div>
                 </a>
               </li>
             ))}
@@ -97,5 +129,6 @@ const SearchComponent = () => {
     </div>
   );
 };
+
 
 export default SearchComponent;
