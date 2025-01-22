@@ -21,8 +21,8 @@ interface Product {
 import dotenv from 'dotenv';
 dotenv.config();
 const client = sanityClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  projectId: "qb6wry8z",
+  dataset: "production",
   useCdn: true,
 });
 
