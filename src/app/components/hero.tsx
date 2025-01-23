@@ -21,51 +21,39 @@ export const FurnitureHero: React.FC = () => {
   };
 
   return (
-
-
-
-
-
-
-
-
     <div className="flex overflow-hidden flex-col justify-center px-4 sm:px-16 py-8 sm:py-16 w-full bg-white">
       <div className="overflow-hidden pl-4 sm:pl-16 bg-indigo-950">
         <div className="flex flex-col sm:flex-row gap-5">
+          {/* Text Section */}
           <div className="flex flex-col w-full sm:w-6/12">
-            <div className="flex flex-col self-stretch text-white py-8 sm:py-0">
+            <div className="flex flex-col self-stretch text-white py-8 sm:py-0 mt-12 sm:mt-24">
               <div className="flex flex-col max-w-full">
-                <div className="text-2xl sm:text-3xl leading-8 sm:leading-10">
+                <h1 className="text-xl sm:text-3xl leading-8 sm:leading-10 font-semibold">
                   {heroContent.title}
-                </div>
+                </h1>
                 <a
                   href={heroContent.ctaLink}
-
-                  className="overflow-hidden gap-2.5 self-start px-6 sm:px-8 py-3 sm:py-4 mt-6 sm:mt-10 text-sm sm:text-base bg-stone-50 bg-opacity-10 hover:bg-opacity-20"
+                  className="inline-block gap-2.5 self-start px-6 sm:px-8 py-3 sm:py-4 mt-6 sm:mt-10 text-sm sm:text-base bg-stone-50 bg-opacity-10 hover:bg-opacity-20 transition-all duration-300 rounded-lg"
                 >
                   {heroContent.ctaText}
                 </a>
               </div>
 
-              <div className="mt-6 sm:mt-10 text-base sm:text-lg leading-6 sm:leading-7">
+              <div className="mt-6 sm:mt-10 text-sm sm:text-lg leading-6 sm:leading-7 space-y-2">
                 {heroContent.description.map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
+                  <p key={index}>{line}</p>
                 ))}
               </div>
             </div>
           </div>
 
-
+          {/* Image Section */}
           <div className="hidden sm:flex flex-col w-6/12">
             <img
               loading="lazy"
               src={heroImage.src}
               alt={heroImage.alt}
-
-              className="object-contain w-full aspect-[0.89]"
+              className="object-contain w-full aspect-[0.89] rounded-lg shadow-lg"
             />
           </div>
         </div>
