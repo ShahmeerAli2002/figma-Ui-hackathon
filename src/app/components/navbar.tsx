@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FiSearch, FiShoppingCart, FiUser, FiMenu, FiX } from "react-icons/fi";
+import {  FiShoppingCart, FiUser, FiMenu, FiX } from "react-icons/fi";
 import SearchComponent from "../components/Search"; // Import the search component
 import Link from "next/link";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   // Fetch cart count from localStorage
   useEffect(() => {
@@ -60,10 +61,24 @@ const Navbar = () => {
               </span>
             )}
           </div>
-          <FiUser
-            className="text-gray-600 text-lg md:text-xl cursor-pointer"
-            onClick={() => window.location.href = "/account"}
-          />
+
+
+
+          <div className="relative">
+            <FiUser
+              className="text-gray-600 text-lg md:text-xl cursor-pointer"
+              onClick={() => setShowUserMenu(!showUserMenu)}
+            />
+            {showUserMenu && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                <a href="/user" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                <a href="/shoppingcart" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders</a>
+                <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                <a href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+              </div>
+            )}
+          </div>
+
           <div className="md:hidden">
             {isMenuOpen ? (
               <FiX
